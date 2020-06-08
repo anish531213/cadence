@@ -249,14 +249,14 @@ func (t *taskProcessor) processTaskOnce(
 	domainID := task.task.GetDomainID()
 
 	scopeIdx, err = task.processor.process(task)
-	scope, found := t.domainMetricsScopeCache.Get(domainID, scopeIdx)
+	scope, found := t.domainMetricsScopeCache.Get("testDomain", scopeIdx)
 
 	if !found {
 		domainTag, err := t.getDomainTagByID(domainID)
 		scope = t.metricsClient.Scope(scopeIdx).Tagged(domainTag)
 		// do not cache DomainUnknownTag
 		if err == nil {
-			t.domainMetricsScopeCache.Put(domainID, scopeIdx, scope)
+			t.domainMetricsScopeCache.Put("testDomain", scopeIdx, scope)
 		}
 	}
 
