@@ -390,13 +390,13 @@ func GetOrCreateDomainTaggedScope(
 	scopeCache := shard.GetService().GetDomainMetricsScopeCache()
 	scope, ok := scopeCache.Get(domainID, scopeIdx)
 	if !ok {
-		domainTag, err := getDomainTagByID(shard.GetDomainCache(), domainID)
+		domainTag := metrics.DomainUnknownTag()
 		scope = shard.GetMetricsClient().Scope(scopeIdx, domainTag)
-		if err == nil {
-			scopeCache.Put(domainID, scopeIdx, scope)
-		} else {
-			logger.Error("Unable to get domainName", tag.Error(err))
-		}
+		//if err == nil {
+		//	scopeCache.Put(domainID, scopeIdx, scope)
+		//} else {
+		//	logger.Error("Unable to get domainName", tag.Error(err))
+		//}
 	}
 	return scope
 }
