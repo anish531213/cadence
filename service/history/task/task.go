@@ -392,6 +392,7 @@ func GetOrCreateDomainTaggedScope(
 	if !ok {
 		domainTag := metrics.DomainUnknownTag()
 		scope = shard.GetMetricsClient().Scope(scopeIdx, domainTag)
+		scopeCache.Put(domainID, scopeIdx, scope)
 		//if err == nil {
 		//	scopeCache.Put(domainID, scopeIdx, scope)
 		//} else {
